@@ -4,12 +4,18 @@
 #include <unordered_map>
 #include <list>
 
+
+
 template <class V, class E>
 class Graph {
     public:
-        struct edge {
-            V src;
-            V dest;
+        struct Vertex {
+            K key_;
+            std::vector<V> edges;
+        }
+        struct Edge {
+            K weight_;
+            std::pair<V, V> edge;
         }
         Graph();
         void insertVertex(const K& key);
@@ -17,6 +23,7 @@ class Graph {
         void removeVertex(const V& vert);
         void removeEdge(const V& src, const V& dest);
         bool isAdjacent(const V& v1, const V& v2);
+        const std::list<E> incidentEdges(const V& vert);
         
 
 
