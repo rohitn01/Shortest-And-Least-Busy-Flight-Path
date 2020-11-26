@@ -6,7 +6,7 @@
 
 
 
-template <class V, class E>
+template <typename V, typename E>
 class Graph {
     public:
         struct Vertex {
@@ -28,5 +28,5 @@ class Graph {
 
 
     private:
-        std::unordered_map<V, std::list<E> adjList;
+        std::unordered_map<V, std::list<E>> adjList;
 };

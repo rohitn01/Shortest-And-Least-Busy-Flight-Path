@@ -1,18 +1,18 @@
 #include "graph.h"
 
-template <class V, class E>
+template <typename V, typename E>
 Graph::Graph() {
 
 }
 
-template <class V, class E>
+template <typename V, typename E>
 void Graph::insertVertex(const K& key) {
     Vertex v = new Vertex();
     v->key_ = key;
     v->edges = {};
 }
 
-template <class V, class E>
+template <typename V, typename E>
 void Graph::insertEdge(const V& src, const V& dest, const K key) {
     Edge e = new Edge();
     e->edge.first = src;
@@ -20,22 +20,29 @@ void Graph::insertEdge(const V& src, const V& dest, const K key) {
     e->weight_ = key;
 }
 
-template <class V, class E>
+template <typename V, typename E>
 void Graph::removeVertex(const V& vert) {
 
 }
 
-template <class V, class E>
+template <typename V, typename E>
 void removeEdge(const V& src, const V& dest) {
 
 }
 
-template <class V, class E>
+template <typename V, typename E>
 bool isAdjacent(const V& v1, const V& v2) {
-
+    auto v1List = adjList.find(v1);
+    for(std::list::iterator it = v1List.begin(); it != v1List.end(); it++) {
+        if(v1->key_ == v2->key_) {
+            return true;
+        }
+    }
+    return false;
 }
 
-template <class V, class E>
+template <typename V, typename E>
 const std::list<E> incidentEdges(const V& vert) {
-
+    auto it = adjList.find(vert);
+    return it;
 }
