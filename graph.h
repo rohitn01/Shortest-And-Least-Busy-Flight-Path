@@ -11,11 +11,11 @@ class Graph {
     public:
         struct Vertex {
             K key_;
-            std::vector<V> edges;
         }
         struct Edge {
             K weight_;
-            std::pair<V, V> edge;
+            V src_;
+            V dest_;
         }
         Graph();
         void insertVertex(const K& key);
