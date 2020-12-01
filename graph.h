@@ -6,27 +6,25 @@
 
 
 
-template <typename V, typename E>
+typedef std::string Vertex;
+
 class Graph {
     public:
-        struct Vertex {
-            K key_;
-        }
         struct Edge {
-            K weight_;
-            V src_;
-            V dest_;
+            double weight_;
+            Vertex src_;
+            Vertex dest_;
         }
         Graph();
         void insertVertex(const K& key);
-        void insertEdge(const V& src, const V& dest, const K key);
-        void removeVertex(const V& vert);
-        void removeEdge(const V& src, const V& dest);
-        bool isAdjacent(const V& v1, const V& v2);
-        const std::list<E> incidentEdges(const V& vert);
+        void insertEdge(const Vertex & src, const Vertex& dest, const K key);
+        void removeVertex(const Vertex& vert);
+        void removeEdge(const Vertex& src, const Vertex& dest);
+        bool isAdjacent(const Vertex& v1, const Vertex& v2);
+        const std::vector<Edge> incidentEdges(const Vertex& vert);
         
 
 
     private:
-        std::unordered_map<V, std::list<E>> adjList;
+        std::unordered_map<Vertex, unordered_map<Vertex, Edge>> adjList;
 };

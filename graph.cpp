@@ -1,76 +1,74 @@
 #include "graph.h"
 
-template <typename V, typename E>
 Graph::Graph() {
 
 }
 
-template <typename V, typename E>
-void Graph::insertVertex(const K& key) {
-    Vertex v;
-    v->key_ = key;
-
+void Graph::insertVertex(const std::string key) {
+    Vertex v = key;
+    removeVertex(v);
+    std::pair<Vector, std::unordered_map<Vector, Edge>> newVertex;
+    newVertex->first = v;
+    newVertex-second = std::unordered_map<Vector, Edge>();
+    adjList.insert(newVertex);
 }
 
-template <typename V, typename E>
-void Graph::insertEdge(const V& src, const V& dest, const K key) {
+void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double key) {
+    if(adjList.find(src) == adjList.end() || adjList.find(dest) == adjList.end()) {
+        return;
+    }
     if(isAdjacent(src, dest)) {
+        adjList[src][dest].weight_ = key;
+        adjList[dest][src].weight_ = key;
         return;
     }
     Edge e;
-    e->edge.first = src;
-    e->edge.second = dest;
+    e->src_ = src;
+    e->dest_ = dest;
     e->weight_ = key;
-    adjList.find(src).insert(e);
-    adjList.find(dest).insert(e);
+    std::pair<Vertex, Edge> fromSource;
+    std::pair<Vertex, Edge> fromDest;
+    fromSource.first = dest;
+    fromDest.first = src;
+    fromSource.second = e;
+    fromDest.second = e;
+    adjList.find(src).insert(fromSource);
+    adjList.find(dest).insert(fromDest);
 }
 
-template <typename V, typename E>
-void Graph::removeVertex(const V& vert) {
-
+void Graph::removeVertex(const Vertex& vert) {
+    if(adjList.find(vert) != adjList.end()) {
+        adjList.erase(vert);
+        for(auto it = adjList.begin(); it != adjList.end(); it++) {
+            if(it->second.find(vert) != it->second.end()) {
+                it->second.erase(vert);
+            }
+        }
+    }
 }
 
-template <typename V, typename E>
-void removeEdge(const V& src, const V& dest) {
+void removeEdge(const Vertex& src, const Vertex& dest) {
     if(!isAdjacent(src, dest)) {
         return;
     }
-    auto & srcList = adjList.find(src);
-    auto & destList = adjList.find(dest);
-    for(std::list::iterator it = srcList.begin(); it != srcList.end(); it++) {
-        if(it->src_->key_ == dest->key_) {
-            srcList.erase(it);
-        }
-        if(it->dest_->key_ == dest->key_) {
-            srcList.erase(it);
-        }
+    adjList.find(src).erase(dest);
+    adjList.find(dest).erase(src);
+}
+
+bool isAdjacent(const Vertex& v1, const Vertex& v2) {
+    if(adjList.find(v1) == adjList.end() || adjList.find(v2) == adjList.end()) {
+        return false;
     }
-    for(std::list::iterator it = destList.begin(); it != destList.end(); it++) {
-        if(it->src_->key_ == src->key_) {
-            srcList.erase(it);
-        }
-        if(it->dest_->key_ == src->key_) {
-            srcList.erase(it);
-        }
+    if(adjList[v1].find(v2) && adjList[v2].find(v1)) {
+        return true;
     }
 }
 
-template <typename V, typename E>
-bool isAdjacent(const V& v1, const V& v2) {
-    auto v1List = adjList.find(v1);
-    for(std::list::iterator it = v1List.begin(); it != v1List.end(); it++) {
-        if(it->src_->key_ == v2->key_) {
-            return true;
-        }
-        if(it->dest_->key_ == v2->key_) {
-            return true;
-        }
+const std::vector<Edge> incidentEdges(const Vertex& vert) {
+    std::vector<Edge> outlist;
+    auto mapping = adjList.find(vert);
+    for(auto it = mapping.begin(); it != mapping.end(); it++) {
+        outlist.push_back(it->second);
     }
-    return false;
-}
-
-template <typename V, typename E>
-const std::list<E> incidentEdges(const V& vert) {
-    auto it = adjList.find(vert);
-    return it;
+    return outlist
 }
