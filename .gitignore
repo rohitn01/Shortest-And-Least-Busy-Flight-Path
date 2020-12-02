@@ -1,5 +1,10 @@
 
 .vscode
+
+test
+
+airports
+
 # https://github.com/github/gitignore/blob/master/C%2B%2B.gitignore
 # Prerequisites
 *.d

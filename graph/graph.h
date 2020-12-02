@@ -1,12 +1,11 @@
 #pragma once
 
+#define Vertex std::string
+
 #include <vector>
 #include <unordered_map>
 #include <list>
-
-
-
-typedef std::string Vertex;
+#include <string>
 
 class Graph {
     public:
