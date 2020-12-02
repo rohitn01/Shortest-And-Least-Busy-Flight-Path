@@ -8,7 +8,7 @@ void Graph::insertVertex(const Vertex & v) {
     removeVertex(v);
     std::pair<Vector, std::unordered_map<Vector, Edge>> newVertex;
     newVertex->first = v;
-    newVertex-second = std::unordered_map<Vector, Edge>();
+    newVertex->second = std::unordered_map<Vector, Edge>();
     adjList.insert(newVertex);
 }
 

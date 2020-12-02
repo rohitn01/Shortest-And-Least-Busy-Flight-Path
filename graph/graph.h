@@ -14,9 +14,9 @@ class Graph {
             double weight_;
             Vertex src_;
             Vertex dest_;
-        }
+        };
         Graph();
-        void insertVertex(const K& key);
+        void insertVertex(const Vertex& V);
         void insertEdge(const Vertex & src, const Vertex& dest, const K key);
         void removeVertex(const Vertex& vert);
         void removeEdge(const Vertex& src, const Vertex& dest);
@@ -26,5 +26,5 @@ class Graph {
 
 
     private:
-        std::unordered_map<Vertex, unordered_map<Vertex, Edge>> adjList;
+        std::unordered_map<Vertex, std::unordered_map<Vertex, Edge>> adjList;
 };
