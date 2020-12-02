@@ -17,11 +17,11 @@ class Graph {
         };
         Graph();
         void insertVertex(const Vertex& V);
-        void insertEdge(const Vertex & src, const Vertex& dest, const K key);
+        void insertEdge(const Vertex & src, const Vertex& dest, const double weight);
         void removeVertex(const Vertex& vert);
         void removeEdge(const Vertex& src, const Vertex& dest);
         bool isAdjacent(const Vertex& v1, const Vertex& v2);
-        const std::vector<Edge> incidentEdges(const Vertex& vert);
+        std::vector<Edge> incidentEdges(const Vertex& vert);
         
 
 

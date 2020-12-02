@@ -6,33 +6,33 @@ Graph::Graph() {
 
 void Graph::insertVertex(const Vertex & v) {
     removeVertex(v);
-    std::pair<Vector, std::unordered_map<Vector, Edge>> newVertex;
-    newVertex->first = v;
-    newVertex->second = std::unordered_map<Vector, Edge>();
+    std::pair<Vertex, std::unordered_map<Vertex, Edge>> newVertex;
+    newVertex.first = v;
+    newVertex.second = std::unordered_map<Vertex, Edge>();
     adjList.insert(newVertex);
 }
 
-void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double key) {
+void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double weight) {
     if(adjList.find(src) == adjList.end() || adjList.find(dest) == adjList.end()) {
         return;
     }
     if(isAdjacent(src, dest)) {
-        adjList[src][dest].weight_ = key;
-        adjList[dest][src].weight_ = key;
+        adjList[src][dest].weight_ = weight;
+        adjList[dest][src].weight_ = weight;
         return;
     }
     Edge e;
-    e->src_ = src;
-    e->dest_ = dest;
-    e->weight_ = key;
+    e.src_ = src;
+    e.dest_ = dest;
+    e.weight_ = weight;
     std::pair<Vertex, Edge> fromSource;
     std::pair<Vertex, Edge> fromDest;
     fromSource.first = dest;
     fromDest.first = src;
     fromSource.second = e;
     fromDest.second = e;
-    adjList.find(src).insert(fromSource);
-    adjList.find(dest).insert(fromDest);
+    adjList.find(src)->second.insert(fromSource);
+    adjList.find(dest)->second.insert(fromDest);
 }
 
 void Graph::removeVertex(const Vertex& vert) {
@@ -46,28 +46,29 @@ void Graph::removeVertex(const Vertex& vert) {
     }
 }
 
-void removeEdge(const Vertex& src, const Vertex& dest) {
+void Graph::removeEdge(const Vertex& src, const Vertex& dest) {
     if(!isAdjacent(src, dest)) {
         return;
     }
-    adjList.find(src).erase(dest);
-    adjList.find(dest).erase(src);
+    adjList.find(src)->second.erase(dest);
+    adjList.find(dest)->second.erase(src);
 }
 
-bool isAdjacent(const Vertex& v1, const Vertex& v2) {
+bool Graph::isAdjacent(const Vertex& v1, const Vertex& v2) {
     if(adjList.find(v1) == adjList.end() || adjList.find(v2) == adjList.end()) {
         return false;
     }
-    if(adjList[v1].find(v2) && adjList[v2].find(v1)) {
+    if(adjList[v1].find(v2) != adjList[v1].end() && adjList[v2].find(v1) != adjList[v2].end()) {
         return true;
     }
+    return false;
 }
 
-const std::vector<Edge> incidentEdges(const Vertex& vert) {
+std::vector<Graph::Edge> Graph::incidentEdges(const Vertex& vert) {
     std::vector<Edge> outlist;
     auto mapping = adjList.find(vert);
-    for(auto it = mapping.begin(); it != mapping.end(); it++) {
+    for(auto it = mapping->second.begin(); it != mapping->second.end(); ++it) {
         outlist.push_back(it->second);
     }
-    return outlist
+    return outlist;
 }
