@@ -4,8 +4,7 @@ Graph::Graph() {
 
 }
 
-void Graph::insertVertex(const std::string key) {
-    Vertex v = key;
+void Graph::insertVertex(const Vertex & v) {
     removeVertex(v);
     std::pair<Vector, std::unordered_map<Vector, Edge>> newVertex;
     newVertex->first = v;
