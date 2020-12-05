@@ -4,6 +4,9 @@
 #include <fstream>
 
 Dataset::Dataset(std::string airport_path, std::string route_path) {
+    std::cout << "Importing airports from " << airport_path << std::endl;
+
+    int invalid_airports = 0;
     std::fstream file;
     file.open(airport_path, std::ios::in);
     if(file.is_open()) {
@@ -13,6 +16,8 @@ Dataset::Dataset(std::string airport_path, std::string route_path) {
             if(a.valid()) {
                 airport_lookup_.insert(std::pair<std::string, Airport>(a.getCode(), a));
                 g_.insertVertex(a.getCode());
+            } else {
+                ++invalid_airports;
             }
         }
     } else {
@@ -21,6 +26,10 @@ Dataset::Dataset(std::string airport_path, std::string route_path) {
     }
     file.close();
 
+    std::cout << "Loaded " << airport_lookup_.size() << " valid airports (" << invalid_airports << " invalid airports)" << std::endl;
+    std::cout << "Importing routes from " << route_path << std::endl;
+
+    int routes = 0;
     file.open(route_path, std::ios::in);
     if(file.is_open()) {
         std::string line;
@@ -49,16 +58,18 @@ Dataset::Dataset(std::string airport_path, std::string route_path) {
             std::string source = parts[2];
             std::string destination = parts[4];
 
-            std::cout << "Source: " << source << " Destination: " << destination << std::endl;
             if(airport_lookup_.find(source) != airport_lookup_.end() && airport_lookup_.find(destination) != airport_lookup_.end()) {
                 double distance = airport_lookup_[source].distance(airport_lookup_[destination]);
                 g_.insertEdge(source, destination, distance);
+                routes++;
             }
         }
     } else {
         std::cout << "ERROR OPENING " << route_path << std::endl;
         return;
     }
+
+    std::cout << "Loaded " << routes << " valid routes" << std::endl;
     file.close();
 }
 

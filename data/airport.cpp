@@ -45,14 +45,15 @@ Airport::Airport(std::string line) {
 
     // assign the parts based on position in list
     try {
-        name_ = parts[0];
-        city_ = parts[1];
-        country_ = parts[2];
-        code_ = parts[3];
+        name_ = parts[1];
+        city_ = parts[2];
+        country_ = parts[3];
+        code_ = parts[4];
         lat_ = stod(parts[6]) * DEG_TO_RAD;
         lng_ = stod(parts[7]) * DEG_TO_RAD;
     } catch (const std::exception& e) {
         valid_ = false;
+        //std::cout << "Invalid airport: " << line << std::endl;
     }
     if(code_ == "Null") valid_ = false;
 }
