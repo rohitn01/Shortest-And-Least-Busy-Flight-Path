@@ -35,11 +35,11 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
     // iterate through all possible edges
     std::vector<Edge> edges = g_.incidentEdges(curr);
     for (Edge edge : edges) {
-      if (edge.dest_ == end) {
+      if (edge.dest_ == end) { // found shortest path
         prev.insert(std::make_pair(edge.dest_, curr));
         break; 
 
-      } else if (visited[edge.dest_] < 0) {
+      } else if (visited[edge.dest_] < 0) { // add possible adjacent vertices
         q.push_back(edge.dest_); 
         visited[edge.dest_] += 1;
         prev.insert(std::make_pair(edge.dest_, curr));
@@ -47,6 +47,15 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
     }
   }
   
+  std::vector<Vertex> path;
+  Vertex curr = end;
+
+  while (path[path.size() - 1] != start) {
+    path.push_back(prev[curr]);
+    curr = prev[curr];
+  }
+
+  std::reverse(path.begin(), path.end());
 
   return path;
 }
