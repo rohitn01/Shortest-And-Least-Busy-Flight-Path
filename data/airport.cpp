@@ -44,6 +44,7 @@ Airport::Airport(std::string line) {
     } catch (const std::exception& e) {
         valid_ = false;
     }
+    if(code_ == "Null") valid_ = false;
 }
 
 // Returns distance between airports in miles
@@ -54,11 +55,9 @@ double Airport::distance(const Airport& other) {
         return -1;
     } else {
         // https://en.wikipedia.org/wiki/Haversine_formula
-        double dist = sin((other.getLat() - lat_)/2);
-        dist *= dist;
+        double dist = sin((other.getLat() - lat_)/2)*sin((other.getLat() - lat_)/2);
         dist += cos(lat_)*cos(other.getLat())*sin((other.getLng() - lng_)/2)*sin((other.getLng() - lng_)/2);
-        dist = sqrt(dist);
-        dist = 2*R*asin(dist);
+        dist = 2*R*asin(sqrt(dist));
 
         return dist;
     } 

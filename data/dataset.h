@@ -3,10 +3,10 @@
 #include <string>
 #include <map>
 
-class Importer {
+class Dataset {
     public:
-        Importer();
-        Importer(std::string path);
+        Dataset();
+        Dataset(std::string path);
         //std::map<std::string, 
 
     private:
