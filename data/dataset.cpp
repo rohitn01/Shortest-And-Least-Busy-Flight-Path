@@ -7,11 +7,15 @@ Dataset::Dataset(std::string airport_path, std::string route_path) {
     std::cout << "Importing airports from " << airport_path << std::endl;
 
     int invalid_airports = 0;
+
+    // iterate through each line
     std::fstream file;
     file.open(airport_path, std::ios::in);
     if(file.is_open()) {
         std::string line;
         while(std::getline(file, line)) {
+
+            // construct a new airport from each line, and append it if valid
             Airport a(line);
             if(a.valid()) {
                 airport_lookup_.insert(std::pair<std::string, Airport>(a.getCode(), a));
