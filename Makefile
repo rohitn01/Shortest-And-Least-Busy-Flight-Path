@@ -37,3 +37,8 @@ main.o : main.cpp graph/graph.h
 
 graph.o : graph/graph.h graph/graph.cpp
 	$(CXX) $(CXXFLAGS) graph/graph.cpp
+
+test : output_msg tests.o graph.o
+
+test.o : tests/tests.cpp	graph/graph.cpp graph/graph.h
+	$(CXX) $(CXXFLAGS) tests/tests.cpp

@@ -70,5 +70,5 @@ std::vector<Graph::Edge> Graph::incidentEdges(const Vertex& vert) {
     for(auto it = mapping->second.begin(); it != mapping->second.end(); ++it) {
         outlist.push_back(it->second);
     }
-    return outlist;
+    return outlist; 
 }
