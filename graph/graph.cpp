@@ -72,3 +72,10 @@ std::vector<Graph::Edge> Graph::incidentEdges(const Vertex& vert) {
     }
     return outlist; 
 }
+std::vector<Vertex> Graph::getVertices() {
+    std::vector<Vertex> outList;
+    for(auto it = adjList.begin(); it != adjList.end(); it++) {
+        outList.push_back(it->first);
+    }
+    return outList;
+}
