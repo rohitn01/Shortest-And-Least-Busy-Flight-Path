@@ -1,9 +1,10 @@
-#include <queue>
-#include <map>
-
 #include "BFS.h"
 
-BFS::BFS(const Graph g) {
+BFS::BFS() {
+
+}
+
+void BFS::addGraph(Graph& g) {
   g_ = g;
 }
 
@@ -40,8 +41,8 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
         break; 
 
       } else if (visited[edge.dest_] < 0) { // add possible adjacent vertices
-        q.push_back(edge.dest_); 
-        visited[edge.dest_] += 1;
+        q.push(edge.dest_); 
+        visited[edge.dest_] = true;
         prev.insert(std::make_pair(edge.dest_, curr));
       }
     }
@@ -49,6 +50,7 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
   
   std::vector<Vertex> path;
   Vertex curr = end;
+  path.push_back(curr);
 
   while (path[path.size() - 1] != start) {
     path.push_back(prev[curr]);

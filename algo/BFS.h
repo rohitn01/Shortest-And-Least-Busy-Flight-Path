@@ -1,14 +1,17 @@
 #pragma once
 
 #include <vector>
+#include <map>
+#include <queue>
 
 #include "../graph/graph.h"
 
 class BFS {
   public:
-    BFS(const Graph g);
+    BFS();
+    void addGraph(Graph&);
     std::vector<Vertex> findShortestPath(Vertex start, Vertex end);
   
   private:
-    const Graph g_;
+    Graph* g_;
 };
