@@ -11,8 +11,10 @@ class Airport {
 
         double distance(const Airport& other);
 
-        double getLat() const;
-        double getLng() const;
+        // pass degrees=true for degrees or degrees=false for radians
+        double getLat(const bool& degrees) const;
+        double getLng(const bool& degrees) const;
+
         std::string getCode() const;
         std::string getName() const;
         std::string getCity() const;
@@ -23,6 +25,8 @@ class Airport {
         Airport();
 
         bool valid_;
+
+        // stored internally in radians
         double lat_;
         double lng_;
 

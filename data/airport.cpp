@@ -6,6 +6,12 @@
 // radius of earth, in miles
 #define R 3950
 
+// pi / 180
+#define DEG_TO_RAD 0.01745329252
+
+// 180 / pi
+#define RAD_TO_DEG 57.29577951308
+
 Airport::Airport(std::string line) {
     valid_ = true;
 
@@ -39,8 +45,8 @@ Airport::Airport(std::string line) {
         city_ = parts[1];
         country_ = parts[2];
         code_ = parts[3];
-        lat_ = stod(parts[5]);
-        lng_ = stod(parts[6]);
+        lat_ = stod(parts[6]) * DEG_TO_RAD;
+        lng_ = stod(parts[7]) * DEG_TO_RAD;
     } catch (const std::exception& e) {
         valid_ = false;
     }
@@ -55,8 +61,8 @@ double Airport::distance(const Airport& other) {
         return -1;
     } else {
         // https://en.wikipedia.org/wiki/Haversine_formula
-        double dist = sin((other.getLat() - lat_)/2)*sin((other.getLat() - lat_)/2);
-        dist += cos(lat_)*cos(other.getLat())*sin((other.getLng() - lng_)/2)*sin((other.getLng() - lng_)/2);
+        double dist = sin((other.getLat(false) - lat_)/2)*sin((other.getLat(false) - lat_)/2);
+        dist += cos(lat_)*cos(other.getLat(false))*sin((other.getLng(false) - lng_)/2)*sin((other.getLng(false) - lng_)/2);
         dist = 2*R*asin(sqrt(dist));
 
         return dist;
@@ -67,11 +73,17 @@ bool Airport::valid() const {
     return valid_;
 }
 
-double Airport::getLat() const {
+double Airport::getLat(const bool& degrees) const {
+    if(degrees) {
+        return valid_ ? lat_*RAD_TO_DEG : 0;
+    }
     return valid_ ? lat_ : 0;
 }
 
-double Airport::getLng() const {
+double Airport::getLng(const bool& degrees) const {
+    if(degrees) {
+        return valid_ ? lng_*RAD_TO_DEG : 0;
+    }
     return valid_ ? lng_ : 0;
 }
 
