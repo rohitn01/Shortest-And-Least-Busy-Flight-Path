@@ -1,5 +1,5 @@
 EXENAME = airports
-OBJS = main.o graph.o
+OBJS = main.o graph.o airport.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -32,16 +32,19 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME) : output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o : main.cpp graph/graph.h
+main.o : main.cpp graph/graph.h data/airport.h
 	$(CXX) $(CXXFLAGS) main.cpp
 
 graph.o : graph/graph.h graph/graph.cpp
 	$(CXX) $(CXXFLAGS) graph/graph.cpp
 
+airport.o : data/airport.h data/airport.cpp
+	$(CXX) $(CXXFLAGS) data/airport.cpp
+
 test : output_msg tests.o graph.o
 
 test.o : tests/tests.cpp	graph/graph.cpp graph/graph.h
 	$(CXX) $(CXXFLAGS) tests/tests.cpp
-	
+
 clean :
 	-rm -f *.o $(EXENAME) test

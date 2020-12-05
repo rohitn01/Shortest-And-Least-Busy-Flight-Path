@@ -1,12 +1,16 @@
+#pragma once
+
 #include <string>
+#include <map>
 
 class Importer {
     public:
-        public Importer();
-        public Importer(std::string path);
+        Importer();
+        Importer(std::string path);
+        //std::map<std::string, 
 
     private:
         std::string filePath;
-        std::map
-}
+        //std::map
+};
 
