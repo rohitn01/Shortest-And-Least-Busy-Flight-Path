@@ -7,6 +7,8 @@ class Airport {
         // this constructor takes a line from airports.dat as input
         Airport(std::string line);
 
+        bool valid() const;
+
         double distance(const Airport& other);
 
         double getLat() const;
@@ -20,8 +22,9 @@ class Airport {
         // disable default constructor
         Airport();
 
-        double lat;
-        double lng;
+        bool valid_;
+        double lat_;
+        double lng_;
 
         std::string code_;
         std::string name_;
