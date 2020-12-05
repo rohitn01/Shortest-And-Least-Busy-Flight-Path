@@ -12,6 +12,10 @@
 // 180 / pi
 #define RAD_TO_DEG 57.29577951308
 
+Airport::Airport() {
+    valid_ = false;
+}
+
 Airport::Airport(std::string line) {
     valid_ = true;
 
@@ -21,7 +25,7 @@ Airport::Airport(std::string line) {
     std::string::iterator it = line.begin();
     
     // iterate through all 14 parts
-    while(i <= 14) {
+    while(i < 14) {
         // if reached end of string, stop
         if(it == line.end()) {
             break;
@@ -55,7 +59,7 @@ Airport::Airport(std::string line) {
 
 // Returns distance between airports in miles
 // or -1 if either airport is invalid
-double Airport::distance(const Airport& other) {
+double Airport::distance(const Airport& other) const {
     // edge case: fed invalid airport
     if(!valid_ || !other.valid()) {
         return -1;

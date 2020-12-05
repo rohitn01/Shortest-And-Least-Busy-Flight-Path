@@ -4,12 +4,15 @@
 
 class Airport {
     public:
+        // default constructor creates invalid airport
+        Airport();
+
         // this constructor takes a line from airports.dat as input
         Airport(std::string line);
 
         bool valid() const;
 
-        double distance(const Airport& other);
+        double distance(const Airport& other) const;
 
         // pass degrees=true for degrees or degrees=false for radians
         double getLat(const bool& degrees) const;
@@ -21,9 +24,6 @@ class Airport {
         std::string getCountry() const;
 
     private:
-        // disable default constructor
-        Airport();
-
         bool valid_;
 
         // stored internally in radians
