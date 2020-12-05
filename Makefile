@@ -42,3 +42,6 @@ test : output_msg tests.o graph.o
 
 test.o : tests/tests.cpp	graph/graph.cpp graph/graph.h
 	$(CXX) $(CXXFLAGS) tests/tests.cpp
+	
+clean :
+	-rm -f *.o $(EXENAME) test
