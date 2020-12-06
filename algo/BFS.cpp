@@ -1,10 +1,8 @@
+#include <iostream>
+
 #include "BFS.h"
 
-BFS::BFS() {
-
-}
-
-void BFS::addGraph(Graph& g) {
+BFS::BFS(Graph& g) {
   g_ = g;
 }
 
@@ -15,7 +13,7 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
   std::map<Vertex, Vertex> prev; // stores prev vertex from curr
 
   for (Vertex vertex : g_.getVertices()) {
-    visited.insert(std::make_pair(vertex, -1));
+    visited.insert(std::make_pair(vertex, false));
   }
 
   // checks if start and end are vertices in the graph
@@ -34,20 +32,21 @@ std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
     q.pop();
 
     // iterate through all possible edges
-    std::vector<Edge> edges = g_.incidentEdges(curr);
-    for (Edge edge : edges) {
+    std::vector<Graph::Edge> edges = g_.incidentEdges(curr);
+
+    for (Graph::Edge edge : edges) {
       if (edge.dest_ == end) { // found shortest path
         prev.insert(std::make_pair(edge.dest_, curr));
         break; 
 
-      } else if (visited[edge.dest_] < 0) { // add possible adjacent vertices
+      } else if (!visited[edge.dest_]) { // add possible adjacent vertices
         q.push(edge.dest_); 
         visited[edge.dest_] = true;
         prev.insert(std::make_pair(edge.dest_, curr));
       }
     }
   }
-  
+
   std::vector<Vertex> path;
   Vertex curr = end;
   path.push_back(curr);

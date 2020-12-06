@@ -8,10 +8,9 @@
 
 class BFS {
   public:
-    BFS();
-    void addGraph(Graph&);
+    BFS(Graph&);
     std::vector<Vertex> findShortestPath(Vertex start, Vertex end);
   
   private:
-    Graph* g_;
+    Graph g_;
 };

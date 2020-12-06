@@ -6,7 +6,7 @@
 #include <iostream>
 
 int main() {
-  Dataset data("data/airports.dat", "data/routes.dat");
+  //Dataset data("data/airports.dat", "data/routes.dat");
 
   //std::cout << data.size() << std::endl;
   //Airport a("test");
@@ -17,28 +17,31 @@ int main() {
   //std::cout << a1.distance(a2) << std::endl;
   //Airport a("test");
 
-
   Graph test;
   test.insertVertex("A");
   test.insertVertex("B");
   test.insertVertex("C");
   test.insertVertex("D");
+  test.insertVertex("E");
+  test.insertVertex("F");
   test.insertEdge("A", "B", 1);
-  test.insertEdge("B", "D", 1);
   test.insertEdge("B", "C", 1);
-  test.insertEdge("A", "C", 1);
+  test.insertEdge("A", "D", 1);
   test.insertEdge("C", "D", 1);
+  test.insertEdge("D", "E", 1);
+  test.insertEdge("C", "F", 1);
+  test.insertEdge("E", "F", 1);
 
   Vertex start = "A";
-  Vertex end = "D";
+  Vertex end = "F";
 
-  BFS bfs;
-  //std::vector<Vertex> output = bfs.findShortestPath(start, end); 
+  BFS bfs(test);
+  std::vector<Vertex> output = bfs.findShortestPath(start, end); 
 
-  //for (Vertex vertex : output) {
-  //  std::cout << vertex << " ";
-  //}
-  //std::cout << std::endl;
+  for (Vertex vertex : output) {
+    std::cout << vertex << " ";
+  }
+  std::cout << std::endl;
 
   return 0;
 }

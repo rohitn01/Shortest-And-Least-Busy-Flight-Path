@@ -1,5 +1,5 @@
 EXENAME = airports
-OBJS = main.o graph.o airport.o dataset.o
+OBJS = main.o graph.o airport.o dataset.o BFS.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -43,6 +43,9 @@ airport.o : data/airport.h data/airport.cpp
 
 dataset.o : data/dataset.h data/dataset.cpp
 	$(CXX) $(CXXFLAGS) data/dataset.cpp
+
+BFS.o : algo/BFS.h algo/BFS.cpp
+	$(CXX) $(CXXFLAGS) algo/BFS.cpp
 
 test : output_msg tests.o graph.o
 
