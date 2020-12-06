@@ -6,7 +6,7 @@ BFS::BFS(Graph& g) {
   g_ = g;
 }
 
-std::vector<Vertex> BFS::findShortestPath(Vertex start, Vertex end) {
+std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) {
   std::queue<Vertex> q;
 
   std::map<Vertex, bool> visited; // stores visited vertices
