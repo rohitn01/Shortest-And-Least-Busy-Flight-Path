@@ -18,6 +18,7 @@ class Airport {
         double getLat(const bool& degrees) const;
         double getLng(const bool& degrees) const;
 
+        // getters for airport info
         std::string getCode() const;
         std::string getName() const;
         std::string getCity() const;
