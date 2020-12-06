@@ -8,4 +8,4 @@
 
 # Week of 11/30/20:
 
-  During this week, we completed our graph implementation along and started building our Makefile to ensure our code compiles so far as well as our main.cpp file. We plan to add test cases into the Makefile and incorporate datareading code. We also met with Stav to discuss our progress in the project.
+  During this week, we completed our graph implementation along and started building our Makefile to ensure our code compiles so far as well as our main.cpp file. We plan to add test cases into the Makefile and incorporate datareading code. We also met with Stav to discuss our progress in the project. After meeting with Stav to see where we are headed with this project, we went ahead and completed implementing data reads and created both a dataset and airport class for us to store routes.dat and airports.dat in. Starting implementations of the BFS/Djikstra's algorithm have been made with sufficient progress.
