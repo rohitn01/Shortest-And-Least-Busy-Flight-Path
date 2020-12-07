@@ -7,7 +7,7 @@
 #include <iostream>
 
 int main() {
-  //Dataset data("data/airports.dat", "data/routes.dat");
+  Dataset data("data/airports.dat", "data/routes.dat");
 
   //std::cout << data.size() << std::endl;
   //Airport a("test");
