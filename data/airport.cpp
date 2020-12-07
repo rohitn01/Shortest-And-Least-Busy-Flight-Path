@@ -18,6 +18,7 @@ Airport::Airport() {
 
 Airport::Airport(std::string line) {
     valid_ = true;
+    bool in_quotes = false;
 
     std::string parts[14];
     
@@ -30,11 +31,13 @@ Airport::Airport(std::string line) {
         if(it == line.end()) {
             break;
 
-        // move to next part after each comma
-        } else if (*it == ',') {
-            i++;
         } else if (*it == '"') {
-            // skip quotation marks entirely
+            in_quotes = !in_quotes;
+
+
+        // move to next part after each comma
+        } else if (*it == ',' && !in_quotes) {
+            i++;
 
         // append the character to the correct part of the string
         } else {
@@ -55,7 +58,7 @@ Airport::Airport(std::string line) {
         valid_ = false;
         //std::cout << "Invalid airport: " << line << std::endl;
     }
-    if(code_ == "\\N") valid_ = false;
+    if(code_ == "\\N" || code_.size() != 3) valid_ = false;
 }
 
 // Returns distance between airports in miles

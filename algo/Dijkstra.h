@@ -6,11 +6,11 @@
 
 #include "../graph/graph.h"
 
-class BFS {
+class Dijkstra {
   public:
-    BFS(Graph&);
+    Dijkstra(Graph&);
     std::vector<Vertex> findShortestPath(const Vertex, const Vertex);
-  
+
   private:
     Graph g_;
 };

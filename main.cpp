@@ -2,6 +2,7 @@
 #include "data/airport.h"
 #include "data/dataset.h"
 #include "algo/BFS.h"
+#include "algo/Dijkstra.h"
 
 #include <iostream>
 
@@ -17,28 +18,39 @@ int main() {
   //std::cout << a1.distance(a2) << std::endl;
   //Airport a("test");
 
-
   Graph test;
   test.insertVertex("A");
   test.insertVertex("B");
   test.insertVertex("C");
   test.insertVertex("D");
-  test.insertEdge("A", "B", 1);
-  test.insertEdge("B", "D", 1);
-  test.insertEdge("B", "C", 1);
-  test.insertEdge("A", "C", 1);
-  test.insertEdge("C", "D", 1);
+  test.insertVertex("E");
+  test.insertVertex("F");
+  test.insertEdge("A", "B", 9);
+  test.insertEdge("B", "C", 8);
+  test.insertEdge("A", "D", 4);
+  test.insertEdge("C", "D", 5);
+  test.insertEdge("D", "E", 7);
+  test.insertEdge("C", "F", 3);
+  test.insertEdge("E", "F", 8);
 
   Vertex start = "A";
-  Vertex end = "D";
+  Vertex end = "F";
 
-  BFS bfs;
-  //std::vector<Vertex> output = bfs.findShortestPath(start, end); 
+  BFS bfs(test);
+  std::vector<Vertex> output0 = bfs.findShortestPath(start, end); 
 
-  //for (Vertex vertex : output) {
-  //  std::cout << vertex << " ";
-  //}
-  //std::cout << std::endl;
+  for (Vertex vertex : output0) {
+    std::cout << vertex << " ";
+  }
+  std::cout << std::endl;
+
+  Dijkstra dj(test);
+  std::vector<Vertex> output1 = dj.findShortestPath(start, end); 
+
+  for (Vertex vertex : output1) {
+    std::cout << vertex << " ";
+  }
+  std::cout << std::endl;
 
   return 0;
 }
