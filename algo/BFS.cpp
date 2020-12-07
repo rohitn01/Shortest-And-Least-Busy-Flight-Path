@@ -6,6 +6,7 @@ BFS::BFS(Graph& g) {
   g_ = g;
 }
 
+// TODO: possibly backtracking does not work
 std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) {
   std::queue<Vertex> q;
 

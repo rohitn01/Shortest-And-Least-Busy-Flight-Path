@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+#include <map>
 #include <queue>
 
 #include "../graph/graph.h"
