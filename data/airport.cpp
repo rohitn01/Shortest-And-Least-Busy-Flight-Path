@@ -58,7 +58,7 @@ Airport::Airport(std::string line) {
         valid_ = false;
         //std::cout << "Invalid airport: " << line << std::endl;
     }
-    if(code_ == "\\N") valid_ = false;
+    if(code_ == "\\N" || code_.size() != 3) valid_ = false;
 }
 
 // Returns distance between airports in miles
