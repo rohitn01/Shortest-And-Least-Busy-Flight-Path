@@ -13,7 +13,7 @@ class Dataset {
         Dataset(std::string airport_path, std::string route_path);
         
         // getter methods to get the graph data structure and airport metadata
-        const Graph& getGraph() const;
+        Graph& getGraph();
         const Airport& getAirport(const std::string& code) const;
         size_t size() const;
         

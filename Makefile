@@ -1,5 +1,5 @@
 EXENAME = airports
-OBJS = main.o graph.o airport.o dataset.o BFS.o Dijkstra.o
+OBJS = main.o graph.o airport.o dataset.o BFS.o Dijkstra.o BetweennessCentrality.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -49,6 +49,9 @@ BFS.o : algo/BFS.h algo/BFS.cpp
 
 Dijkstra.o : algo/Dijkstra.h algo/Dijkstra.cpp
 	$(CXX) $(CXXFLAGS) algo/Dijkstra.cpp
+
+BetweennessCentrality.o : algo/BetweennessCentrality.h algo/BetweennessCentrality.cpp
+	$(CXX) $(CXXFLAGS) algo/BetweennessCentrality.cpp
 
 test : output_msg tests.o graph.o
 

@@ -77,7 +77,7 @@ Dataset::Dataset(std::string airport_path, std::string route_path) {
     file.close();
 }
 
-const Graph& Dataset::getGraph() const {
+Graph& Dataset::getGraph() {
     return g_;
 }
 

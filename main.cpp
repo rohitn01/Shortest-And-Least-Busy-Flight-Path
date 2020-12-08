@@ -3,6 +3,7 @@
 #include "data/dataset.h"
 #include "algo/BFS.h"
 #include "algo/Dijkstra.h"
+#include "algo/BetweennessCentrality.h"
 
 #include <iostream>
 
@@ -22,32 +23,38 @@ int main() {
   test.insertVertex("A");
   test.insertVertex("B");
   test.insertVertex("C");
-  test.insertVertex("D");
-  test.insertVertex("E");
-  test.insertVertex("F");
+  //test.insertVertex("D");
+  //test.insertVertex("E");
+  //test.insertVertex("F");
   test.insertEdge("A", "B", 9);
   test.insertEdge("B", "C", 8);
-  test.insertEdge("A", "D", 4);
-  test.insertEdge("C", "D", 5);
-  test.insertEdge("D", "E", 7);
-  test.insertEdge("C", "F", 3);
-  test.insertEdge("E", "F", 8);
+  //test.insertEdge("A", "D", 4);
+  //test.insertEdge("C", "D", 5);
+  //test.insertEdge("D", "E", 7);
+  //test.insertEdge("D", "F", 2);
 
   Vertex start = "A";
-  Vertex end = "F";
+  Vertex end = "C";
 
-  BFS bfs(test);
-  std::vector<Vertex> output0 = bfs.findShortestPath(start, end); 
+  //BFS bfs(test);
+  //std::vector<Vertex> output0 = bfs.findShortestPath(start, end); 
 
-  for (Vertex vertex : output0) {
-    std::cout << vertex << " ";
-  }
-  std::cout << std::endl;
+  //for (Vertex vertex : output0) {
+  //  std::cout << vertex << " ";
+  //}
+  //std::cout << std::endl;
 
   Dijkstra dj(test);
   std::vector<Vertex> output1 = dj.findShortestPath(start, end); 
 
   for (Vertex vertex : output1) {
+    std::cout << vertex << " ";
+  }
+  std::cout << std::endl;
+
+  std::vector<Vertex> output2 = findCentralAirports(1, test); 
+
+  for (Vertex vertex : output2) {
     std::cout << vertex << " ";
   }
   std::cout << std::endl;

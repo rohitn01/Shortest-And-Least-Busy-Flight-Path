@@ -1,10 +1,10 @@
 #include "BetweennessCentrality.h"
 
-std::vector<Vertex> findCentralAirports(int numAirports, Graph G) {
+std::vector<Vertex> findCentralAirports(int numAirports, Graph& G) {
     std::map<Vertex, int> vertexCentrality;
-    std::vector<Vertex> vertices;
+    std::vector<Vertex> vertices = G.getVertices();
     int pathCount = 0;
-    Dijkstra::Dijkstra Dijkstra(G);
+    Dijkstra Dijkstra(G);
     for (size_t i = 0; i < vertices.size(); i++) {
         for (size_t j = 0; j < vertices.size(); j++) {
             if (i != j) {
@@ -29,7 +29,7 @@ std::vector<Vertex> findCentralAirports(int numAirports, Graph G) {
     std::reverse(centrality.begin(), centrality.end());
 
     std::vector<Vertex> centralAirports;
-    for (size_t i = 0; i < numAirports; i++) {
+    for (int i = 0; i < numAirports; i++) {
         centralAirports.push_back(centrality[i].second);
     }
     //centralAirports is now a vector with the top airports

@@ -18,4 +18,4 @@
  * 
  * @return A vector with the most central vertices (airports)
  */
-std::vector<Vertex> findCentralAirports(int numAirports, Graph G);
+std::vector<Vertex> findCentralAirports(int numAirports, Graph& G);
