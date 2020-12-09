@@ -56,6 +56,17 @@ int main() {
   }
   std::cout << std::endl;
 
+  std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> boy = dj.findShortestPathMap(start);
+
+  for (auto it = boy.begin(); it != boy.end(); it++) {
+    std::cout << ((*it).first).first << " to " << ((*it).first).second << ": ";
+
+    for (Vertex vertex : (*it).second) {
+      std::cout << vertex << " ";
+    }
+    std::cout << std::endl;
+  }
+
   //std::vector<Vertex> output2 = findCentralAirports(1, test); 
 
   //for (Vertex vertex : output2) {
