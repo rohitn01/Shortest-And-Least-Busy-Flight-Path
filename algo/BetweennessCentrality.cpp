@@ -15,13 +15,13 @@ std::vector<Vertex> findCentralAirports(int numAirports, Graph& G) {
         for (size_t j = 0; j < vertices.size(); j++) {
             if (i != j) {
                 std::cout<<"checking: "<<vertices[i]<<" to "<<vertices[j]<<std::endl;
-                std::vector<Vertex> shortestPath = Dijkstra.findShortestPath(vertices[i], vertices[j]); //Returns vector of nodes in shortest path between 2 given nodes, not including the given start and end. Empty if no path.
-                std::cout<<"Path found"<<std::endl;
+                std::vector<Vertex> shortestPath = Dijkstra.findShortestPath(vertices[i], vertices[j], std::vector<Vertex>()); //Returns vector of nodes in shortest path between 2 given nodes, not including the given start and end. Empty if no path.
+                //std::cout<<"Path found"<<std::endl;
 
                 for (const Vertex &v : shortestPath) {
                     vertexCentrality[v]++;
                 }
-                std::cout<<"centrality appened"<<std::endl;
+                //std::cout<<"centrality appened"<<std::endl;
             }
         }
     }
