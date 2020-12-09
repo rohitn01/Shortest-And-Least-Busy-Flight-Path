@@ -8,7 +8,7 @@ std::vector<Vertex> findCentralAirports(int numAirports, Graph& G) {
     for (size_t i = 0; i < vertices.size(); i++) {
         for (size_t j = 0; j < vertices.size(); j++) {
             if (i != j) {
-                std::vector<Vertex> shortestPath = Dijkstra.findShortestPath(vertices[i], vertices[j]); //Returns vector of nodes in shortest path between 2 given nodes, not including the given start and end. Empty if no path.
+                std::vector<Vertex> shortestPath = Dijkstra.findShortestPath(vertices[i], vertices[j], vertices); //Returns vector of nodes in shortest path between 2 given nodes, not including the given start and end. Empty if no path.
                 if (shortestPath.size() != 0) {
                     pathCount++;
                 }

@@ -6,9 +6,9 @@ BFS::BFS(Graph& g) {
   g_ = g;
 }
 
-// TODO: possibly backtracking does not work
-std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) {
+std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end, const std::vector<Vertex> hubs) {
   std::queue<Vertex> q;
+  bool found = false;
 
   std::map<Vertex, bool> visited; // stores visited vertices
   std::map<Vertex, Vertex> prev; // stores prev vertex from curr
@@ -26,6 +26,10 @@ std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) 
     return std::vector<Vertex>();
   }
 
+  for (Vertex vertex : hubs) {
+    visited[vertex] = true; 
+  }
+
   q.push(start);
 
   while(!q.empty()) {
@@ -38,6 +42,7 @@ std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) 
     for (Graph::Edge edge : edges) {
       if (edge.dest_ == end) { // found shortest path
         prev.insert(std::make_pair(edge.dest_, curr));
+        found = true;
         break; 
 
       } else if (!visited[edge.dest_]) { // add possible adjacent vertices
@@ -49,15 +54,18 @@ std::vector<Vertex> BFS::findShortestPath(const Vertex start, const Vertex end) 
   }
 
   std::vector<Vertex> path;
-  Vertex curr = end;
-  path.push_back(curr);
 
-  while (path[path.size() - 1] != start) {
-    path.push_back(prev[curr]);
-    curr = prev[curr];
+  if (found) {
+    Vertex curr = end;
+    path.push_back(curr);
+
+    while (path[path.size() - 1] != start) {
+      path.push_back(prev[curr]);
+      curr = prev[curr];
+    }
+
+    std::reverse(path.begin(), path.end());
   }
-
-  std::reverse(path.begin(), path.end());
 
   return path;
 }

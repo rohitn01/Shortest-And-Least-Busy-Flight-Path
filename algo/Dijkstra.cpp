@@ -4,8 +4,9 @@ Dijkstra::Dijkstra(Graph& g) {
   g_ = g;
 }
 
-std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex end) {
+std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex end, const std::vector<Vertex> hubs) {
   std::priority_queue<std::pair<int, Vertex>, std::vector<std::pair<int, Vertex>>, std::greater<std::pair<int, Vertex>>> pq;
+  bool found = false;
 
   std::map<Vertex, int> dist; // stores shortest distances
   std::map<Vertex, bool> visited; // stores visited vertices
@@ -25,6 +26,10 @@ std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex 
     }
 
     visited.insert(std::make_pair(vertex, false));
+  }
+
+  for (Vertex vertex : hubs) {
+    visited[vertex] = true;
   }
 
   pq.push(std::make_pair(0, start));
@@ -58,16 +63,24 @@ std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex 
     }
   }
 
-  std::vector<Vertex> path;
-  Vertex curr = end;
-  path.push_back(curr);
-
-  while (path[path.size() - 1] != start) {
-    path.push_back(prev[curr]);
-    curr = prev[curr];
+  std::map<Vertex, Vertex>::iterator it = prev.find(end);
+  if (it != prev.end()) {
+    found = true;
   }
 
-  std::reverse(path.begin(), path.end());
+  std::vector<Vertex> path;
+
+  if (found) {
+    Vertex curr = end;
+    path.push_back(curr);
+
+    while (path[path.size() - 1] != start) {
+      path.push_back(prev[curr]);
+      curr = prev[curr];
+    }
+
+    std::reverse(path.begin(), path.end());
+  }
 
   return path;
 }
