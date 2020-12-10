@@ -9,3 +9,7 @@
 # Week of 11/30/20:
 
   During this week, we completed our graph implementation along and started building our Makefile to ensure our code compiles so far as well as our main.cpp file. We plan to add test cases into the Makefile and incorporate datareading code. We also met with Stav to discuss our progress in the project. After meeting with Stav to see where we are headed with this project, we went ahead and completed implementing data reads and created both a dataset and airport class for us to store routes.dat and airports.dat in. Starting implementations of the BFS/Djikstra's algorithm have been made with sufficient progress.
+
+# Week of 12/7/20:
+
+  During this week, the data handling process has been accomplished and test cases have been written. Last minute touches are being added to the BFS/Djikstra's algorithm and betweeness centrality. As the deadline approaches, it seems that everything should hopefully be accomplished before then, with test cases being  written as well as the formalities and presentations being drawn up.

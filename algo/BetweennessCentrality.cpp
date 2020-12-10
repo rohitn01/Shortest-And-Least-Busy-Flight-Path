@@ -4,7 +4,7 @@
 std::vector<Vertex> findCentralAirports(int numAirports, Graph& G) {
     std::unordered_map<Vertex, int> vertexCentrality;
     std::vector<Vertex> vertices = G.getVertices();
-    if (numAirports >= vertices.size()) {
+    if (numAirports >= (int) vertices.size()) {
         return vertices;
     }
     if (numAirports <= 0) {
