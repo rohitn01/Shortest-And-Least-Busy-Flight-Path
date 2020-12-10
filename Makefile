@@ -53,10 +53,18 @@ Dijkstra.o : algo/Dijkstra.h algo/Dijkstra.cpp
 BetweennessCentrality.o : algo/BetweennessCentrality.h algo/BetweennessCentrality.cpp
 	$(CXX) $(CXXFLAGS) algo/BetweennessCentrality.cpp
 
-test : output_msg tests.o graph.o
+test: output_msg catchmain.o tests.o graph.o
+	$(LD) catchmain.o tests.o graph.o $(LDFLAGS) -o test
 
-test.o : tests/tests.cpp	graph/graph.cpp graph/graph.h
+catchmain.o : cs225/catch/catchmain.cpp cs225/catch/catch.hpp
+	$(CXX) $(CXXFLAGS) cs225/catch/catchmain.cpp
+
+tests.o : tests/tests.cpp cs225/catch/catch.hpp graph/graph.cpp graph/graph.h
 	$(CXX) $(CXXFLAGS) tests/tests.cpp
 
 clean :
 	-rm -f *.o $(EXENAME) test
+
+
+# Use the cs225 makefile template:
+include cs225/make/cs225.mk
