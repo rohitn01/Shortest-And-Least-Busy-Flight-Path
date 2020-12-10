@@ -20,7 +20,7 @@ void Graph::insertVertex(const Vertex & v) {
 // Includes edge in adjacency list for both vertices. Ignores duplicate edges if made,
 // but will reassign weight.
 void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double weight) {
-    if(adjList.find(src) == adjList.end() || adjList.find(dest) == adjList.end()) {
+    if(!vertexExists(src) || !vertexExists(dest)) {
         return;
     }
     if(isAdjacent(src, dest)) {
@@ -45,7 +45,7 @@ void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double weigh
 // Check to see if vertex passed exists, deletes the vertex, then iterates through adjacency list 
 // at that vertex wiping out all data of edges corresponding to that point.
 void Graph::removeVertex(const Vertex& vert) {
-    if(adjList.find(vert) != adjList.end()) {
+    if(vertexExists(vert)) {
         adjList.erase(vert);
         for(auto it = adjList.begin(); it != adjList.end(); it++) {
             if(it->second.find(vert) != it->second.end()) {
@@ -64,9 +64,23 @@ void Graph::removeEdge(const Vertex& src, const Vertex& dest) {
     adjList.find(dest)->second.erase(src);
 }
 
+double Graph::getEdgeWeight(const Vertex& src, const Vertex& dest) {
+    if(isAdjacent(src, dest)) {
+        return adjList[src][dest].weight_;
+    }
+    return -1.0;
+}
+
+// Given a vertex V, check the adjacency list to see if it exists in graph.
+bool Graph::vertexExists(const Vertex& V) {
+    if(adjList.find(V) != adjList.end()) {
+        return true;
+    }
+    return false;
+}
 // Checks to see if vertices exist in adjacency list and then check to see if v2 exists in v1's adjacent list and vice versa. Return true if it exists.
 bool Graph::isAdjacent(const Vertex& v1, const Vertex& v2) {
-    if(adjList.find(v1) == adjList.end() || adjList.find(v2) == adjList.end()) {
+    if(!vertexExists(v1) || !vertexExists(v2)) {
         return false;
     }
     if(adjList[v1].find(v2) != adjList[v1].end() && adjList[v2].find(v1) != adjList[v2].end()) {

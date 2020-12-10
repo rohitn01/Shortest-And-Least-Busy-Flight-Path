@@ -19,6 +19,8 @@ class Graph {
         void insertEdge(const Vertex & src, const Vertex& dest, const double weight);
         void removeVertex(const Vertex& vert);
         void removeEdge(const Vertex& src, const Vertex& dest);
+        double getEdgeWeight(const Vertex& src, const Vertex& dest);
+        bool vertexExists(const Vertex& V);
         bool isAdjacent(const Vertex& v1, const Vertex& v2);
         std::vector<Edge> incidentEdges(const Vertex& vert);
         std::vector<Vertex> getVertices();
