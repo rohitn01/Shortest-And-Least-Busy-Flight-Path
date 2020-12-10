@@ -1,9 +1,13 @@
 #include "graph.h"
 
+
+// Basic Graph Constructor
 Graph::Graph() {
 
 }
 
+// Inserts a vertex into the graph by passing in argument of Vertex v (typedef string). 
+// Removes vertex first if it exists before inserting. Adds vertex into adjacency list.
 void Graph::insertVertex(const Vertex & v) {
     removeVertex(v);
     std::pair<Vertex, std::unordered_map<Vertex, Edge>> newVertex;
@@ -12,6 +16,9 @@ void Graph::insertVertex(const Vertex & v) {
     adjList.insert(newVertex);
 }
 
+// Creates an edge between two existing vertices in graph and assigns weight to that edge.
+// Includes edge in adjacency list for both vertices. Ignores duplicate edges if made,
+// but will reassign weight.
 void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double weight) {
     if(adjList.find(src) == adjList.end() || adjList.find(dest) == adjList.end()) {
         return;
@@ -35,6 +42,8 @@ void Graph::insertEdge(const Vertex& src, const Vertex& dest, const double weigh
     adjList.find(dest)->second.insert(fromDest);
 }
 
+// Check to see if vertex passed exists, deletes the vertex, then iterates through adjacency list 
+// at that vertex wiping out all data of edges corresponding to that point.
 void Graph::removeVertex(const Vertex& vert) {
     if(adjList.find(vert) != adjList.end()) {
         adjList.erase(vert);
@@ -46,6 +55,7 @@ void Graph::removeVertex(const Vertex& vert) {
     }
 }
 
+// Checks to see if edge exists between vertices and deletes accordingly
 void Graph::removeEdge(const Vertex& src, const Vertex& dest) {
     if(!isAdjacent(src, dest)) {
         return;
@@ -54,6 +64,7 @@ void Graph::removeEdge(const Vertex& src, const Vertex& dest) {
     adjList.find(dest)->second.erase(src);
 }
 
+// Checks to see if vertices exist in adjacency list and then check to see if v2 exists in v1's adjacent list and vice versa. Return true if it exists.
 bool Graph::isAdjacent(const Vertex& v1, const Vertex& v2) {
     if(adjList.find(v1) == adjList.end() || adjList.find(v2) == adjList.end()) {
         return false;
@@ -63,15 +74,19 @@ bool Graph::isAdjacent(const Vertex& v1, const Vertex& v2) {
     }
     return false;
 }
-
+// Checks to see if vertex exists and then proceeds to add every edge to the return list.
 std::vector<Graph::Edge> Graph::incidentEdges(const Vertex& vert) {
     std::vector<Edge> outlist;
     auto mapping = adjList.find(vert);
+    /*if(mapping == adjList.end()) {
+        return outlist;
+    }*/
     for(auto it = mapping->second.begin(); it != mapping->second.end(); ++it) {
         outlist.push_back(it->second);
     }
     return outlist; 
 }
+// Returns a list of all present vertices on graph using adjacency list.
 std::vector<Vertex> Graph::getVertices() {
     std::vector<Vertex> outList;
     for(auto it = adjList.begin(); it != adjList.end(); it++) {
