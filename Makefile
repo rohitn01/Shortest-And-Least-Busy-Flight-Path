@@ -53,13 +53,13 @@ Dijkstra.o : algo/Dijkstra.h algo/Dijkstra.cpp
 BetweennessCentrality.o : algo/BetweennessCentrality.h algo/BetweennessCentrality.cpp
 	$(CXX) $(CXXFLAGS) algo/BetweennessCentrality.cpp
 
-test: output_msg catchmain.o tests.o graph.o airport.o dataset.o
-	$(LD) catchmain.o tests.o graph.o airport.o dataset.o $(LDFLAGS) -o test
+test: output_msg catchmain.o tests.o graph.o airport.o dataset.o BetweennessCentrality.o Dijkstra.o BFS.o
+	$(LD) catchmain.o tests.o graph.o airport.o dataset.o BetweennessCentrality.o Dijkstra.o BFS.o $(LDFLAGS) -o test
 
 catchmain.o : cs225/catch/catchmain.cpp cs225/catch/catch.hpp
 	$(CXX) $(CXXFLAGS) cs225/catch/catchmain.cpp
 
-tests.o : tests/tests.cpp cs225/catch/catch.hpp graph/graph.cpp graph/graph.h data/dataset.h data/airport.h
+tests.o : tests/tests.cpp cs225/catch/catch.hpp graph/graph.cpp graph/graph.h data/dataset.h data/airport.h algo/BetweennessCentrality.h algo/Dijkstra.h algo/BFS.o
 	$(CXX) $(CXXFLAGS) tests/tests.cpp
 
 clean :

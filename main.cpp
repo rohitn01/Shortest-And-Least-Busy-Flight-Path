@@ -68,13 +68,53 @@ int main() {
     std::cout << std::endl;
   }
   */
-
-  std::vector<Vertex> output2 = findCentralAirports(50, data.getGraph()); 
-  std::cout<<"Central Airports: "<<std::endl;
-  for (Vertex vertex : output2) {
-    std::cout << vertex << " ";
+  //Find top 100 centrally locatedAirports
+  std::vector<Vertex> top100 = findCentralAirports(100, data.getGraph()); 
+  std::cout<<"Top 10 Central Airports: "<<std::endl;
+  for (size_t i = 0; i < 10; i++) {
+    std::cout << top100[i] << " ";
   }
   std::cout << std::endl;
 
+  //Example shortest paths without top airports
+  //These currently do not work properly, 
+  Dijkstra airportPaths(data.getGraph());
+  std::cout<<"Shortest Path from CMI to Cape Town (CPT)"<<std::endl;
+  auto CMICPT = airportPaths.findShortestPath("CMI", "CPT", std::vector<Vertex>());
+  for (Vertex vertex : CMICPT) {
+    std::cout << vertex << " ";
+  }
+
+  std::cout<<"Shortest Path from CMI to Cape Town (CPT) without hubs"<<std::endl;
+  auto CMICPTH = airportPaths.findShortestPath("CMI", "CPT", top100);
+  for (Vertex vertex : CMICPTH) {
+    std::cout << vertex << " ";
+  }
+
+  std::cout<<"Shortest Path from CMI to Novosibirsk International Airport (OVB)"<<std::endl;
+  auto CMIOVB = airportPaths.findShortestPath("CMI", "OVB", std::vector<Vertex>());
+  for (Vertex vertex : CMIOVB) {
+    std::cout << vertex << " ";
+  }
+
+  std::cout<<"Shortest Path from CMI to Novosibirsk International Airport (OVB) without hubs"<<std::endl;
+  auto CMIOVBH = airportPaths.findShortestPath("CMI", "OVB", top100);
+  for (Vertex vertex : CMIOVBH) {
+    std::cout << vertex << " ";
+  }
+
+  std::cout<<"Shortest Path from ABC to DEF"<<std::endl;
+  auto ABCDEF = airportPaths.findShortestPath("ABC", "DEF", std::vector<Vertex>());
+  for (Vertex vertex : ABCDEF) {
+    std::cout << vertex << " ";
+  }
+
+  std::cout<<"Shortest Path from ABC to DEF without hubs"<<std::endl;
+  auto ABCDEFH = airportPaths.findShortestPath("ABC", "DEF", top100);
+  for (Vertex vertex : ABCDEFH) {
+    std::cout << vertex << " ";
+  }
+
+  
   return 0;
 }

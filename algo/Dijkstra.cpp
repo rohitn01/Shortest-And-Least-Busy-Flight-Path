@@ -81,7 +81,7 @@ std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex 
 }
 
 //std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> Dijkstra::findShortestPathMap(const Vertex start) {
-std::vector<std::vector<Vertex>> Dijkstra::findShortestPathMap(const Vertex start) {  
+std::vector<std::vector<Vertex>> Dijkstra::findShortestPathVector(const Vertex start) {  
 
   //std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> out;
   std::vector<std::vector<Vertex>> out;
