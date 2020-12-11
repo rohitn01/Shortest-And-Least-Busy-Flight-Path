@@ -8,7 +8,7 @@
 #include <iostream>
 
 int main() {
-  Dataset data("data/airports.dat", "data/routes.dat");
+  
 
   //std::cout << data.size() << std::endl;
   //Airport a("test");
@@ -19,6 +19,7 @@ int main() {
   //std::cout << a1.distance(a2) << std::endl;
   //Airport a("test");
 
+  /*
   Graph test;
   test.insertVertex("A");
   test.insertVertex("B");
@@ -40,6 +41,7 @@ int main() {
   hubs.push_back("C");
   hubs.push_back("D");
 
+  */
   //BFS bfs(test);
   //std::vector<Vertex> output0 = bfs.findShortestPath(start, end, hubs); 
 
@@ -48,6 +50,7 @@ int main() {
   //}
   //std::cout << std::endl;
 
+  /*
   Dijkstra dj(test);
   std::vector<Vertex> output1 = dj.findShortestPath(start, end, hubs); 
 
@@ -55,7 +58,7 @@ int main() {
     std::cout << vertex << " ";
   }
   std::cout << std::endl;
-
+  */
   /* // Commented out since it uses the old findShortestPathMap
   std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> boy = dj.findShortestPathMap(start);
 
@@ -68,6 +71,8 @@ int main() {
     std::cout << std::endl;
   }
   */
+
+  /*
   //Find top 100 centrally locatedAirports
   std::vector<Vertex> top100 = findCentralAirports(100, data.getGraph()); 
   std::cout<<"Top 10 Central Airports: "<<std::endl;
@@ -115,6 +120,78 @@ int main() {
     std::cout << vertex << " ";
   }
 
-  
+  */
+  Dataset data("data/airports.dat", "data/routes.dat");
+  Dijkstra airportPaths(data.getGraph());
+  std::vector<Vertex> hubs;
+  int option;
+  while(1) {
+    std::cout << "There are currently " << hubs.size() << " excluded airports. Please select an option:" << std::endl;
+    std::cout << "1) Adjust number of excluded hub airports" << std::endl;
+    std::cout << "2) Print list of excluded hub airports" << std::endl;
+    std::cout << "3) Determine the shortest route" << std::endl;
+    std::cout << "4) Quit" << std::endl;
+    std::cout << "Selection: ";
+
+    while(!(std::cin >> option) || option < 1 || option > 4) {
+      std::cout << "Pleast enter an option 1 and 4!" << std::endl << "Selection: ";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    if(option == 1) {
+      std::cout << "Please enter the number of hub airports you would like to exclude." << std::endl;
+      std::cout << "Hub airports: ";
+      int excluded;
+      while(!(std::cin >> excluded) || excluded < 0 || excluded > 500) {
+        std::cout << "Pleast enter an option between 1 and 500!" << std::endl  << "Hub airports: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+      std::cout << "Identifying the top " << excluded << " most central airports (this might take a few minutes)" << std::endl;
+      hubs = findCentralAirports(excluded, data.getGraph()); 
+      std::cout << "Done!" << std::endl;
+
+    } else if (option == 2) {
+      if(hubs.size() > 0) {
+        for(size_t i = 0; i < hubs.size() - 1; i++) {
+          std::cout << hubs[i] << ", ";
+        }
+        std::cout << hubs[hubs.size() - 1] << std::endl;
+      } else {
+        std::cout << "No hubs!" << std::endl;
+      }
+
+    } else if (option == 3) {
+      std::string origin;
+      std::string destination;
+
+      std::cout << "Please enter 3-character airport codes in ALL CAPS" << std::endl;
+      std::cout << "Origin: ";
+      while(!(std::cin >> origin) || !data.getAirport(origin).valid()) {
+        std::cout << "Could not find an airport with that code!" << std::endl << "Origin: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+
+      std:: cout << "Destination: ";
+      while(!(std::cin >> destination) || !data.getAirport(destination).valid()) {
+        std::cout << "Could not find an airport with that code!" << std::endl << "Destination: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+
+      auto route = airportPaths.findShortestPath(origin, destination, hubs);
+      std::cout << "Shortest route: ";
+      for (Vertex vertex : route) {
+        std::cout << vertex << " ";
+      }
+      std::cout << std::endl;
+
+    } else {
+      return 0;
+    }
+    std::cout << std::endl;
+  }
   return 0;
 }
