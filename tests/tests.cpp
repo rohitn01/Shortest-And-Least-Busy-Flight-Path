@@ -277,12 +277,234 @@ TEST_CASE("Dataset contains expected airports and routes", "[weight=1][part=2]")
     REQUIRE(data.getGraph().vertexExists("CMI"));
 
     double distance = data.getAirport("CMI").distance(data.getAirport("ORD"));
-    REQUIRE( distance > 135);
-    REQUIRE( distance < 136);
+    REQUIRE(distance > 135);
+    REQUIRE(distance < 136);
 }
 
 // BFS Testing
+TEST_CASE("BFS finds shortest path", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
 
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("D", "C", 2);
+  test.insertEdge("C", "E", 5);
+  test.insertEdge("E", "D", 7);
+
+  BFS bfs(test);
+  std::vector<Vertex> output = bfs.findShortestPath("A", "E", std::vector<Vertex>());  
+  std::vector<Vertex> answer {"A", "C", "E"};
+  
+  REQUIRE(output.size() == answer.size());
+
+  for (size_t i = 0; i < answer.size(); i++) {
+    REQUIRE(output[i] == answer[i]); 
+  }
+}
+
+TEST_CASE("BFS with no path", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("D", "C", 2);
+  test.insertEdge("C", "E", 5);
+
+  BFS bfs(test);
+  std::vector<Vertex> output = bfs.findShortestPath("A", "D", std::vector<Vertex>());  
+  
+  REQUIRE(output.empty());
+}
+
+TEST_CASE("BFS with disconnected", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("E", "D", 5);
+
+  BFS bfs(test);
+  std::vector<Vertex> output = bfs.findShortestPath("A", "D", std::vector<Vertex>());  
+  
+  REQUIRE(output.empty());
+}
+
+TEST_CASE("BFS with removed hubs", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("C", "D", 2);
+  test.insertEdge("C", "E", 5);
+  test.insertEdge("E", "B", 4);
+  test.insertEdge("A", "E", 5);
+  test.insertEdge("B", "D", 2);
+
+  BFS bfs(test);
+  std::vector<Vertex> hubs {"C"};
+  std::vector<Vertex> output = bfs.findShortestPath("A", "D", hubs);  
+  std::vector<Vertex> answer {"A", "E", "B", "D"};
+
+  REQUIRE(output.size() == answer.size());
+
+  for (size_t i = 0; i < answer.size(); i++) {
+    REQUIRE(output[i] == answer[i]);
+  }
+}
 
 // Dijkstra Testing
+TEST_CASE("Dijkstra finds shortest path", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
 
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("D", "C", 2);
+  test.insertEdge("C", "E", 5);
+  test.insertEdge("E", "D", 7);
+  test.insertEdge("A", "E", 8);
+
+  Dijkstra dj(test);
+  std::vector<Vertex> output = dj.findShortestPath("A", "E", std::vector<Vertex>());  
+  std::vector<Vertex> answer {"A", "C", "E"};
+  
+  REQUIRE(output.size() == answer.size());
+
+  for (size_t i = 0; i < answer.size(); i++) {
+    REQUIRE(output[i] == answer[i]); 
+  }
+}
+
+TEST_CASE("Dijkstra finds vector of shortest paths", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("D", "C", 2);
+  test.insertEdge("C", "E", 5);
+  test.insertEdge("E", "D", 7);
+  test.insertEdge("A", "E", 8);
+
+  Dijkstra dj(test);
+  std::vector<std::vector<Vertex>> output = dj.findShortestPathVector("A");  
+  std::vector<std::vector<Vertex>> answer;
+  std::vector<Vertex> answer0 {"A", "C"};
+  std::vector<Vertex> answer1 {"A", "C", "B"};
+  std::vector<Vertex> answer2 {"A", "C", "E", "D"};
+  std::vector<Vertex> answer3 {"A", "C", "E"};
+  answer.push_back(answer0);
+  answer.push_back(answer1);
+  answer.push_back(answer2);
+  answer.push_back(answer3);
+
+  REQUIRE(output.size() == answer.size());
+
+  for (size_t i = 0; i < answer.size(); i++) {
+    for (size_t j = 0; j < answer[i].size(); j++) {
+      REQUIRE(output[i][j] == answer[i][j]); 
+    }
+  }
+}
+
+TEST_CASE("Dijkstra with no path", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("D", "C", 2);
+  test.insertEdge("C", "E", 5);
+
+  Dijkstra dj(test);
+  std::vector<Vertex> output = dj.findShortestPath("A", "D", std::vector<Vertex>());  
+  
+  REQUIRE(output.empty());
+}
+
+TEST_CASE("Dijkstra with disconnected", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("E", "D", 5);
+
+  Dijkstra dj(test);
+  std::vector<Vertex> output = dj.findShortestPath("A", "D", std::vector<Vertex>());  
+  
+  REQUIRE(output.empty());
+}
+
+TEST_CASE("Dijkstra with removed hubs", "[weight=1][part=3]") {
+  Graph test;
+  test.insertVertex("A");
+  test.insertVertex("B");
+  test.insertVertex("C");
+  test.insertVertex("D");
+  test.insertVertex("E");
+
+  test.insertEdge("A", "C", 2);
+  test.insertEdge("C", "B", 5);
+  test.insertEdge("B", "A", 7);
+  test.insertEdge("C", "D", 2);
+  test.insertEdge("C", "E", 5);
+  test.insertEdge("E", "B", 4);
+  test.insertEdge("A", "E", 5);
+  test.insertEdge("B", "D", 2);
+
+  Dijkstra dj(test);
+  std::vector<Vertex> hubs {"C"};
+  std::vector<Vertex> output = dj.findShortestPath("A", "D", hubs);  
+  std::vector<Vertex> answer {"A", "E", "B", "D"};
+
+  REQUIRE(output.size() == answer.size());
+
+  for (size_t i = 0; i < answer.size(); i++) {
+    REQUIRE(output[i] == answer[i]);
+  }
+}

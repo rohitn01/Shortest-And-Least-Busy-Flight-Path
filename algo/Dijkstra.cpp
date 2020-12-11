@@ -80,10 +80,7 @@ std::vector<Vertex> Dijkstra::findShortestPath(const Vertex start, const Vertex 
   return path;
 }
 
-//std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> Dijkstra::findShortestPathMap(const Vertex start) {
 std::vector<std::vector<Vertex>> Dijkstra::findShortestPathVector(const Vertex start) {  
-
-  //std::map<std::pair<Vertex, Vertex>, std::vector<Vertex>> out;
   std::vector<std::vector<Vertex>> out;
   std::priority_queue<std::pair<int, Vertex>, std::vector<std::pair<int, Vertex>>, std::greater<std::pair<int, Vertex>>> pq;
 
@@ -153,7 +150,6 @@ std::vector<std::vector<Vertex>> Dijkstra::findShortestPathVector(const Vertex s
         std::reverse(path.begin(), path.end());
       }
 
-      //out.insert(std::make_pair(std::make_pair(start, end), path));
       out.push_back(path);
     }
   }
