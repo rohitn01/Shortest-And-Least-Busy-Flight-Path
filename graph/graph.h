@@ -1,5 +1,6 @@
 #pragma once
 
+// Vertex is a string for airport codes
 #define Vertex std::string
 
 #include <vector>
@@ -9,11 +10,13 @@
 
 class Graph {
     public:
+        // Edges are defined as a struct.
         struct Edge {
             double weight_;
             Vertex src_;
             Vertex dest_;
         };
+
         Graph();
         void insertVertex(const Vertex& V);
         void insertEdge(const Vertex & src, const Vertex& dest, const double weight);
@@ -28,5 +31,6 @@ class Graph {
 
 
     private:
+        // Utilizing the adjacency list to store vertex/edge relations
         std::unordered_map<Vertex, std::unordered_map<Vertex, Edge>> adjList;
 };
