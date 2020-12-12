@@ -12,4 +12,4 @@
 
 # Week of 12/7/20:
 
-  During this week, the data handling process has been accomplished and test cases have been written. Last minute touches are being added to the BFS/Djikstra's algorithm and betweeness centrality. As the deadline approaches, it seems that everything should hopefully be accomplished before then, with test cases being  written as well as the formalities and presentations being drawn up.
+  During this week, the data handling process has been accomplished and test cases have been written. Last minute touches are being added to the BFS/Djikstra's algorithm and betweeness centrality. We completed test cases, and created a command interface for the user to run with the program. We finished our presentation video as well finalized our results documentation and other important categories. It is safe for us to say now that our project is now complete.
