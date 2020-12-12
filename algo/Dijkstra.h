@@ -17,7 +17,7 @@ class Dijkstra {
 
     // Outputs a vector of vectors that have all the shortest paths to all other vertices using Dijkstras
     // Input is only starting vertex
-    // Used only for BetwenessCentrality algo and therefore does not need a vector of vertices to avoid
+    // Used only for BetwennessCentrality algo and therefore does not need a vector of vertices to avoid
     std::vector<std::vector<Vertex>> findShortestPathVector(const Vertex);
 
   private:
