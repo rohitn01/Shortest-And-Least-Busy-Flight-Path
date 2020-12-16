@@ -1,5 +1,7 @@
 # Shortest and Least Busy Flight Path Simulator
 
+Developed by Rohit Narayanan, Andrew Tian, Josh Levy, and Trevor Wong
+
 This program is intended to calculate airport routes from a given starting and destination airports. Our program has the ability to avoid hub airports, as defined by betweenness centrality. This is a group final project for CS225: Data Structures and Algorithms at the University of Illinois at Urbana-Champaign.
 
 ## Building
